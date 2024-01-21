@@ -1,2 +1,4 @@
 mod token_regex;
-pub use token_regex::WHITESPACE_REGEX;
+mod tokenize;
+pub use token_regex::*;
+pub use tokenize::tokenize;
