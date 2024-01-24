@@ -1,7 +1,7 @@
 pub const ASTERIX_REGEX_STR: &str = r"^\*$";
 pub const ASSIGN_REGEX_STR: &str = r"^=$";
 pub const COMMA_REGEX_STR: &str = r"^,$";
-pub const COMMENT_REGEX_STR: &str = r"^//(.*)\n$";
+pub const COMMENT_REGEX_STR: &str = r"^(//|#)(.*)\n$";
 pub const CONST_REGEX_STR: &str = r"^const$";
 pub const CURLY_CLOSE_REGEX_STR: &str = r"^\}$";
 pub const CURLY_OPEN_REGEX_STR: &str = r"^\{$";
@@ -37,6 +37,7 @@ mod tests {
     const SOME_VARIABLE_NAME: &str = "_thisIsSomeString124__123";
     const SOME_INVALID_VARIABLE_NAME: &str = "1abc";
     const SOME_COMMENT: &str = "//THIS IS A COMMENT 124 ___ while if when \n";
+    const SOME_OTHER_COMMENT: &str = "#THIs IS a COMMENT * ___ while \n";
 
     fn regex_matches(regex_str: &str, input: &str) -> bool {
         let regex = Regex::new(regex_str).unwrap();
@@ -64,6 +65,7 @@ mod tests {
         assert_eq!(regex_matches(COMMENT_REGEX_STR, "\n"), false);
         assert_eq!(regex_matches(COMMENT_REGEX_STR, SOME_VARIABLE_NAME), false);
         assert_eq!(regex_matches(COMMENT_REGEX_STR, SOME_COMMENT), true);
+        assert_eq!(regex_matches(COMMENT_REGEX_STR, SOME_OTHER_COMMENT), true);
     }
 
     #[test]
