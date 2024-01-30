@@ -1,5 +1,5 @@
-pub const ASTERIX_REGEX_STR: &str = r"^\*$";
 pub const ASSIGN_REGEX_STR: &str = r"^=$";
+pub const ASTERIX_REGEX_STR: &str = r"^\*$";
 pub const COMMA_REGEX_STR: &str = r"^,$";
 pub const COMMENT_REGEX_STR: &str = r"^(//|#)(.*)\n$";
 pub const CONST_REGEX_STR: &str = r"^const$";
@@ -45,13 +45,13 @@ mod tests {
     }
 
     #[test]
-    fn asterix_regex() {
-        assert_eq!(regex_matches(ASTERIX_REGEX_STR, "*"), true);
+    fn assign_regex() {
+        assert_eq!(regex_matches(ASSIGN_REGEX_STR, "="), true);
     }
 
     #[test]
-    fn assign_regex() {
-        assert_eq!(regex_matches(ASSIGN_REGEX_STR, "="), true);
+    fn asterix_regex() {
+        assert_eq!(regex_matches(ASTERIX_REGEX_STR, "*"), true);
     }
 
     #[test]
