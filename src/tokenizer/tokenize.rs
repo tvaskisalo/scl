@@ -108,12 +108,57 @@ pub fn tokenize(mut input: String) -> Vec<Token> {
                     s if new_line_regex.is_match(s) => new_line_matched = true,
                     s if whitespace_regex.is_match(s) => {}
                     s if comment_regex.is_match(s) => new_line_matched = true,
-
+                    s if eq_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if geq_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if leq_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if neq_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+ 
                     // Rest alphabetically
                     // Regexes demand that the next char after the slice is "empty"
+                    s if assign_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if asterix_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if comma_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Punctuation,
+                        value: slice.to_string(),
+                    }),
                     s if const_regex.is_match(s) => tokens.push(Token {
                         location: current_location,
                         token_type: TokenType::Identifier,
+                        value: slice.to_string(),
+                    }),
+                    s if curly_close_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Punctuation,
+                        value: slice.to_string(),
+                    }),
+                    s if curly_open_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Punctuation,
                         value: slice.to_string(),
                     }),
                     s if boolean_regex.is_match(s) => tokens.push(Token {
@@ -121,9 +166,29 @@ pub fn tokenize(mut input: String) -> Vec<Token> {
                         token_type: TokenType::Identifier,
                         value: slice.to_string(),
                     }),
+                    s if bracket_close_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Punctuation,
+                        value: slice.to_string(),
+                    }),
+                    s if bracket_open_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Punctuation,
+                        value: slice.to_string(),
+                    }),
+                    s if dash_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
                     s if else_regex.is_match(s) => tokens.push(Token {
                         location: current_location,
                         token_type: TokenType::Identifier,
+                        value: slice.to_string(),
+                    }),
+                    s if greater_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
                         value: slice.to_string(),
                     }),
                     s if if_regex.is_match(s) => tokens.push(Token {
@@ -134,6 +199,26 @@ pub fn tokenize(mut input: String) -> Vec<Token> {
                     s if integer_regex.is_match(s) => tokens.push(Token {
                         location: current_location,
                         token_type: TokenType::IntLiteral,
+                        value: slice.to_string(),
+                    }),
+                    s if less_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if minus_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if plus_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Operator,
+                        value: slice.to_string(),
+                    }),
+                    s if semicolon_regex.is_match(s) => tokens.push(Token {
+                        location: current_location,
+                        token_type: TokenType::Punctuation,
                         value: slice.to_string(),
                     }),
                     s if unit_regex.is_match(s) => tokens.push(Token {
@@ -330,5 +415,182 @@ mod tests {
         assert_eq!(expected_tokens[5], tokens[5]);
         assert_eq!(expected_tokens[6], tokens[6]);
         assert_eq!(expected_tokens[7], tokens[7]);
+    }
+
+    #[test]
+    fn test_punctuation_and_operators()  {
+        let expected_tokens: Vec<Token> = vec![
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 1,
+                },
+                token_type: TokenType::Operator,
+                value: "+".to_string(),
+            }, 
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 3,
+                },
+                token_type: TokenType::Operator,
+                value: "-".to_string(),
+            }, 
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 5,
+                },
+                token_type: TokenType::Operator,
+                value: "*".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 7,
+                },
+                token_type: TokenType::Operator,
+                value: "/".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 9,
+                },
+                token_type: TokenType::Operator,
+                value: "=".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 11,
+                },
+                token_type: TokenType::Punctuation,
+                value: "(".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 13,
+                },
+                token_type: TokenType::Operator,
+                value: "==".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 16,
+                },
+                token_type: TokenType::Punctuation,
+                value: ")".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 18,
+                },
+                token_type: TokenType::Operator,
+                value: "!=".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 21,
+                },
+                token_type: TokenType::Punctuation,
+                value: "{".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 23,
+                },
+                token_type: TokenType::Operator,
+                value: "<".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 25,
+                },
+                token_type: TokenType::Punctuation,
+                value: "}".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 27,
+                },
+                token_type: TokenType::Operator,
+                value: "<=".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 30,
+                },
+                token_type: TokenType::Punctuation,
+                value: ",".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 32,
+                },
+                token_type: TokenType::Operator,
+                value: ">".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 34,
+                },
+                token_type: TokenType::Punctuation,
+                value: ";".to_string(),
+            },
+            Token {
+                location: Location {
+                    filename: "TODO".to_string(),
+                    line: 1,
+                    col: 36,
+                },
+                token_type: TokenType::Operator,
+                value: ">=".to_string(),
+            },
+        ];
+        let tokens: Vec<Token> = tokenize(r"+ - * / = ( == ) != { < } <= , > ; >=".to_string());
+        assert_eq!(expected_tokens[0], tokens[0]);
+        assert_eq!(expected_tokens[1], tokens[1]);
+        assert_eq!(expected_tokens[2], tokens[2]);
+        assert_eq!(expected_tokens[3], tokens[3]);
+        assert_eq!(expected_tokens[4], tokens[4]);
+        assert_eq!(expected_tokens[5], tokens[5]);
+        assert_eq!(expected_tokens[6], tokens[6]);
+        assert_eq!(expected_tokens[7], tokens[7]);
+        assert_eq!(expected_tokens[8], tokens[8]);
+        assert_eq!(expected_tokens[9], tokens[9]);
+        assert_eq!(expected_tokens[10], tokens[10]);
+        assert_eq!(expected_tokens[11], tokens[11]);
+        assert_eq!(expected_tokens[12], tokens[12]);
+        assert_eq!(expected_tokens[13], tokens[13]);
+        assert_eq!(expected_tokens[14], tokens[14]);
+        assert_eq!(expected_tokens[15], tokens[15]);
+        assert_eq!(expected_tokens[16], tokens[16]);
     }
 }

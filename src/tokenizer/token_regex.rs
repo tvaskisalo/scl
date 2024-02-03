@@ -8,7 +8,7 @@ pub const CURLY_OPEN_REGEX_STR: &str = r"^\{$";
 pub const BOOLEAN_REGEX_STR: &str = r"^(true|false)$";
 pub const BRACKET_CLOSE_REGEX_STR: &str = r"^\)$";
 pub const BRACKET_OPEN_REGEX_STR: &str = r"^\($";
-pub const DASH_REGEX_STR: &str = r"^\\$";
+pub const DASH_REGEX_STR: &str = r"^/$";
 pub const ELSE_REGEX_STR: &str = r"^else$";
 pub const EQ_REGEX_STR: &str = r"^==$";
 pub const GREATER_REGEX_STR: &str = r"^>$";
@@ -101,7 +101,7 @@ mod tests {
 
     #[test]
     fn dash_regex() {
-        assert_eq!(regex_matches(DASH_REGEX_STR, r"\"), true);
+        assert_eq!(regex_matches(DASH_REGEX_STR, r"/"), true);
     }
 
     #[test]
